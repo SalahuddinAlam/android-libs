@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+       default-lazy-init="true">
+
+<!--	<bean id="audioFragmentDao" class="net.kazed.android.inject.AudioFragmentDao"> -->
+	<!-- <property name="provider" ref="provider" /> -->
+	<!-- 
+		<constructor-arg>	
+			<map>
+				<entry>
+					<key><value>simple</value></key>
+					<bean class="me.springframework.sample.cmdline.TitlesOnlyRenderer"/>
+				</entry>
+				<entry>
+					<key><value>colored</value></key>
+					<bean class="me.springframework.sample.cmdline.NicelyColoredRenderer"/>
+				</entry>
+			</map>
+		</constructor-arg>
+	-->
+<!--	</bean> -->
+
+<!--
+	<bean id="contextFactory" class="net.kazed.ambient.database.ContextFactory">
+	</bean>
+	
+	<bean id="androidContext" factory-bean="contextFactory" factory-method="getContext" />
+	
+	<bean id="provider" class="net.kazed.ambient.database.TestProvider">
+	  <property name="context" ref="androidContext" /> 
+	</bean>
+-->
+
+</beans>
