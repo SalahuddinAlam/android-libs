@@ -89,7 +89,7 @@ public class DirectApplicationContext implements ApplicationContext {
 		int parameterIndex = 0;
 		boolean allParametersInstantiated = true;
 		for (Class<? extends Object> parameterType : parameterTypes) {
-			if (singletons.containsKey(parameterType) || binding.containsKey(parameterType)) {
+			if (singletons.containsKey(parameterType) || binding.containsKey(parameterType) || factories.containsKey(parameterType)) {
 				parameters[parameterIndex] = getSingleton(parameterType);
 			} else {
 				allParametersInstantiated = false;
