@@ -1,9 +1,13 @@
 package net.kazed.android.collection;
 
+import java.io.Serializable;
 
-public class Averager {
 
-	private float[] speeds;
+public class Averager implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+   private float[] speeds;
 	private int index = 0;
 	private int size = 0;
 	private float total = 0.0F;
