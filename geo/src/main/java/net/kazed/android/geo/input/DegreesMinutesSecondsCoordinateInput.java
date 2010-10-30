@@ -2,6 +2,7 @@ package net.kazed.android.geo.input;
 
 import java.text.DecimalFormat;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.widget.TextView;
@@ -21,6 +22,16 @@ public class DegreesMinutesSecondsCoordinateInput extends CoordinateInput {
       degreesInput = (TextView) dialog.findViewById(degreesId);
       minutesInput = (TextView) dialog.findViewById(minutesId);
       secondsInput = (TextView) dialog.findViewById(secondsId);
+      this.boundary = boundary;
+      this.minutesErrorId = minutesErrorId;
+      this.secondsErrorId = secondsErrorId;
+   }
+
+   public DegreesMinutesSecondsCoordinateInput(Activity activity, int degreesId, int minutesId, int secondsId, CoordinateBoundary boundary,
+         int minutesErrorId, int secondsErrorId) {
+      degreesInput = (TextView) activity.findViewById(degreesId);
+      minutesInput = (TextView) activity.findViewById(minutesId);
+      secondsInput = (TextView) activity.findViewById(secondsId);
       this.boundary = boundary;
       this.minutesErrorId = minutesErrorId;
       this.secondsErrorId = secondsErrorId;
