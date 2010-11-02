@@ -44,11 +44,11 @@ public class DegreesMinutesSecondsCoordinateInput extends CoordinateInput {
    }
 
    public void setValue(double value) {
-      if (Math.abs(value) < 0.0001) {
-         degreesInput.setText("");
-         minutesInput.setText("");
-         secondsInput.setText("");
-      } else {
+//      if (Math.abs(value) < 0.0001) {
+//         degreesInput.setText("");
+//         minutesInput.setText("");
+//         secondsInput.setText("");
+//      } else {
          int degrees = (int) value;
          double minutesValue = 60 * (value - degrees);
          int minutes = (int) minutesValue;
@@ -68,7 +68,7 @@ public class DegreesMinutesSecondsCoordinateInput extends CoordinateInput {
          minutesInput.setText(Integer.toString(minutes));
          DecimalFormat format = new DecimalFormat("0.####");
          secondsInput.setText(format.format(seconds));
-      }
+//      }
    }
 
    public double getValue() {
@@ -98,6 +98,10 @@ public class DegreesMinutesSecondsCoordinateInput extends CoordinateInput {
          valid = true;
       }
       return valid;
+   }
+
+   public boolean requestFocus() {
+      return degreesInput.requestFocus();
    }
 
    private boolean isMinutesValid() {

@@ -28,12 +28,12 @@ public class DegreesCoordinateInput extends CoordinateInput {
    }
 
    public void setValue(double value) {
-      if (Math.abs(value) < 0.0001) {
-         degreesInput.setText("");
-      } else {
+//      if (Math.abs(value) < 0.0001) {
+//         degreesInput.setText("");
+//      } else {
          DecimalFormat format = new DecimalFormat("0.######");
          degreesInput.setText(format.format(value));
-      }
+//      }
    }
 
    public double getValue() {
@@ -55,6 +55,10 @@ public class DegreesCoordinateInput extends CoordinateInput {
          valid = true;
       }
       return valid;
+   }
+
+   public boolean requestFocus() {
+      return degreesInput.requestFocus();
    }
 
    public boolean isDegreesValid(int minimum, int maximum) {

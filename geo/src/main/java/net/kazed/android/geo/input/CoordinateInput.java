@@ -15,7 +15,17 @@ public abstract class CoordinateInput {
     */
    public abstract boolean isEmpty();
 
+   /**
+    * Validate coordinate input.
+    * @param context Android context.
+    * @return True if input is valid.
+    */
    public abstract boolean validate(Context context);
+   
+   /**
+    * Request input focus.
+    */
+   public abstract boolean requestFocus();
    
    public static class CoordinateBoundary {
       private int boundaryErrorId;

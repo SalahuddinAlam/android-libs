@@ -35,10 +35,10 @@ public class DegreesMinutesCoordinateInput extends CoordinateInput {
    }
 
    public void setValue(double value) {
-      if (Math.abs(value) < 0.0001) {
-         degreesInput.setText("");
-         minutesInput.setText("");
-      } else {
+//      if (Math.abs(value) < 0.0001) {
+//         degreesInput.setText("");
+//         minutesInput.setText("");
+//      } else {
          int degrees = (int) value;
          double minutes = 60 * (value - degrees);
          if (degrees < 0.0) {
@@ -52,7 +52,7 @@ public class DegreesMinutesCoordinateInput extends CoordinateInput {
          }
          DecimalFormat format = new DecimalFormat("0.####");
          minutesInput.setText(format.format(minutes));
-      }
+//      }
    }
 
    public double getValue() {
@@ -85,6 +85,10 @@ public class DegreesMinutesCoordinateInput extends CoordinateInput {
          valid = true;
       }
       return valid;
+   }
+   
+   public boolean requestFocus() {
+      return degreesInput.requestFocus();
    }
 
    private boolean isMinutesValid() {
