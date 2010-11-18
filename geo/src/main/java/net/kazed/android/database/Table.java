@@ -15,7 +15,7 @@ import android.provider.BaseColumns;
 /**
  * Table definition.
  */
-public abstract class Table {
+public abstract class Table<T> {
 
     public static final String PACKAGE = Table.class.getPackage().getName();
 
@@ -44,6 +44,20 @@ public abstract class Table {
         return tableName;
     }
     
+    /**
+     * Extract object from cursor.
+     * @param cursor Query cursor.
+     * @return Extracted object.
+     */
+    public abstract T extract(final Cursor cursor);
+    
+    /**
+     * Insert modelObject values into collection.
+     * @param modelObject Model object.
+     * @return Content values.
+     */
+    public abstract ContentValues getValues(final T modelObject);
+
     /**
      * Add column
      * @param columnName Name of column.
@@ -171,6 +185,25 @@ public abstract class Table {
     }
     
     /**
+     * Get Double value of field.
+     * @param cursor Database cursor.
+     * @param fieldName Name of field.
+     * @param defaultValue Default value if database value is null.
+     * @return Retrieved value, null if field value is null.
+     */
+    public Double getDouble(Cursor cursor, String fieldName, Double defaultValue) {
+       Double result = null;
+       
+       int columnIndex = nameToPosition.get(fieldName);
+       if (cursor.isNull(columnIndex)) {
+          result = defaultValue;
+       } else {
+          result = cursor.getDouble(columnIndex);
+       }
+       return result;
+    }
+    
+    /**
      * Get String value of field.
      * @param cursor Database cursor.
      * @param fieldName Name of field.
@@ -215,10 +248,28 @@ public abstract class Table {
      * @param orderByClause
      * @return
      */
-    public Cursor query(SQLiteDatabase db, Uri uri, String[] projection, String selection,
+    public Cursor query(SQLiteDatabase db, String[] projection, String selection,
                     String[] selectionArgs, String orderByClause) {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(tableName);
+        qb.setProjectionMap(projectionMap);
+        return qb.query(db, projection, selection, selectionArgs, null, null, orderByClause);
+    }
+    
+    /**
+     * Query database.
+     * @param db Database.
+     * @param uri Item URI.
+     * @param projection Selected columns.
+     * @param selection Where clause.
+     * @param selectionArgs Where clause.
+     * @param orderByClause
+     * @return
+     */
+    public Cursor queryWithJoin(SQLiteDatabase db, String joinTables, String[] projection, String selection,
+                    String[] selectionArgs, String orderByClause) {
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        qb.setTables(tableName + ", " + joinTables);
         qb.setProjectionMap(projectionMap);
         return qb.query(db, projection, selection, selectionArgs, null, null, orderByClause);
     }
@@ -268,9 +319,23 @@ public abstract class Table {
     }
 
     /**
-     * Insert values into db.
+     * Update values in db.
      * @param db Database.
-     * @param values Values of new record.
+     * @param uri Database item URI.
+     * @param values Updated values.
+     * @return Number of rows updated.
+     */
+    public int update(SQLiteDatabase db, Uri uri, ContentValues values) {
+      String whereClause = BaseColumns._ID + " = ?";
+      String idSegment = uri.getLastPathSegment();
+      int count = db.update(tableName, values, whereClause, new String[] { idSegment });
+      return count;
+    }
+    
+    /**
+     * Delete record from db.
+     * @param db Database.
+     * @param uri Database item URI.
      */
     public void delete(SQLiteDatabase db, Uri uri) {
     	String whereClause = BaseColumns._ID + " = ?";

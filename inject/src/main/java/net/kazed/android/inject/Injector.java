@@ -44,7 +44,7 @@ public class Injector {
 					try {
 						method.invoke(target, parameters);
 					} catch (IllegalArgumentException e) {
-						throw new InjectException(e);
+						throw new InjectException("Failed to inject setter: " + method.getName() + ", target: " + target.getClass(), e);
 					} catch (IllegalAccessException e) {
 						throw new InjectException(e);
 					} catch (InvocationTargetException e) {

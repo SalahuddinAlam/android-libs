@@ -8,7 +8,7 @@ public abstract class InjectedListActivity extends ListActivity {
 	private InjectedApplication application;
 	
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
     	InjectedApplication application = getInjectedApplication();
         application.injectInto(this);
         super.onCreate(savedInstanceState);
