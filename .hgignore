@@ -3,3 +3,5 @@ syntax: regexp
 ^geo/target$
 syntax: regexp
 ^inject/target$
+syntax: regexp
+^common/target$
