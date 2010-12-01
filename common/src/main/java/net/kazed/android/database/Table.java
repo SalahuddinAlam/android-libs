@@ -337,11 +337,14 @@ public abstract class Table<T> {
      * @param db Database.
      * @param uri Database item URI.
      */
-    public void delete(SQLiteDatabase db, Uri uri) {
+    public int delete(SQLiteDatabase db, Uri uri) {
     	String whereClause = BaseColumns._ID + " = ?";
         String idSegment = uri.getLastPathSegment();
-        db.delete(tableName, whereClause, new String[] {idSegment});
+        return delete(db, whereClause, new String[] {idSegment});
     }
 
+    public int delete(SQLiteDatabase db, String whereClause, String[] whereArg) {
+       return db.delete(tableName, whereClause, whereArg);
+    }
 
 }

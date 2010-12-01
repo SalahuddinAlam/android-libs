@@ -6,7 +6,7 @@
 	   <version>1.0.7-SNAPSHOT</version>
 	</parent>
 	<groupId>net.kazed.android</groupId>
-	<artifactId>alib</artifactId>
+	<artifactId>common</artifactId>
 	<packaging>jar</packaging>
 	<name>Android library</name>
 	<build>

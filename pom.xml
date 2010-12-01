@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.kazed.android</groupId>
 	<artifactId>android-libs</artifactId>
-	<version>1.0.6</version>
+	<version>1.0.7-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Android library</name>
     <scm>
@@ -11,7 +11,7 @@
 	    <url>http://code.google.com/p/android-libs/source/browse</url>
 	</scm>
 	<modules>
-	  <module>geo</module>
+	  <module>common</module>
 	  <module>inject</module>
 	</modules>
 	<build>
