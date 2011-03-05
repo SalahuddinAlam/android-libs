@@ -309,6 +309,135 @@ public abstract class Table<T> {
     }
     
     /**
+     * Query database.
+     * @param db Database.
+     * @param id Item ID.
+     * @param projection Selected columns.
+     * @param selection Where clause.
+     * @param selectionArgs Where clause.
+     * @param orderByClause
+     * @return
+     */
+    public T queryItemById(SQLiteDatabase db, long id, String[] projection) {
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        qb.setTables(tableName);
+        qb.setProjectionMap(projectionMap);
+        String where = BaseColumns._ID + " = ?";
+        String[] whereArgs = {Long.toString(id)};
+        Cursor cursor = qb.query(db, projection, where, whereArgs, null, null, null);
+        T object = null;
+        try {
+           if (cursor.moveToFirst()) {
+              object = extract(cursor);
+           }
+        } finally {
+           if (cursor != null) {
+              cursor.close();
+           }
+        }
+        return object;
+    }
+    
+    /**
+     * Query database.
+     * @param db Database.
+     * @param projection Selected columns.
+     * @param where Where clause.
+     * @param whereArgs Where clause.
+     * @param orderBy Order by clause.
+     * @return
+     */
+    public T queryItem(final SQLiteDatabase db, final String[] projection, final String where, final String[] whereArgs, final String orderBy) {
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        qb.setTables(tableName);
+        qb.setProjectionMap(projectionMap);
+        Cursor cursor = qb.query(db, projection, where, whereArgs, null, null, orderBy);
+        T object = null;
+        try {
+           if (cursor.moveToFirst()) {
+              object = extract(cursor);
+           }
+        } finally {
+           if (cursor != null) {
+              cursor.close();
+           }
+        }
+        return object;
+    }
+    
+    /**
+     * Query database.
+     * @param db Database.
+     * @param projection Selected columns.
+     * @param where Where clause.
+     * @param whereArgs Where clause.
+     * @return
+     */
+    public T queryItem(final SQLiteDatabase db, final String[] projection, final String where, final String[] whereArgs) {
+        return queryItem(db, projection, where, whereArgs, null);
+    }
+    
+    /**
+     * Query database.
+     * @param db Database.
+     * @param uri Item Uri.
+     * @param projection Selected columns.
+     * @param selection Where clause.
+     * @param selectionArgs Where clause.
+     * @param orderByClause
+     * @return
+     */
+    public T queryItemByUri(SQLiteDatabase db, Uri uri, String[] projection) {
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        qb.setTables(tableName);
+        qb.setProjectionMap(projectionMap);
+        String where = BaseColumns._ID + " = ?";
+        String idSegment = uri.getLastPathSegment();
+        String[] whereArgs = {idSegment};
+        Cursor cursor = qb.query(db, projection, where, whereArgs, null, null, null);
+        T object = null;
+        try {
+           if (cursor.moveToFirst()) {
+              object = extract(cursor);
+           }
+        } finally {
+           if (cursor != null) {
+              cursor.close();
+           }
+        }
+        return object;
+    }
+    
+    /**
+     * Query database.
+     * @param db Database.
+     * @param projection Selected columns.
+     * @param where Where clause.
+     * @param whereArgs Where clause.
+     * @param orderBy Order by clause.
+     * @return List of retrieved items.
+     */
+    public List<T> queryItems(final SQLiteDatabase db, final String[] projection, final String where, final String[] whereArgs, final String orderBy) {
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        qb.setTables(tableName);
+        qb.setProjectionMap(projectionMap);
+        Cursor cursor = qb.query(db, projection, where, whereArgs, null, null, orderBy);
+        List<T> list = new ArrayList<T>();
+        try {
+           boolean reading = cursor.moveToFirst();
+           while(reading) {
+              list.add(extract(cursor));
+              reading = cursor.moveToNext();
+           }
+        } finally {
+           if (cursor != null) {
+              cursor.close();
+           }
+        }
+        return list;
+    }
+    
+    /**
      * Insert values into db.
      * @param db Database.
      * @param values Values of new record.
@@ -343,7 +472,7 @@ public abstract class Table<T> {
         return delete(db, whereClause, new String[] {idSegment});
     }
 
-    public int delete(SQLiteDatabase db, String whereClause, String[] whereArg) {
+    public int delete(SQLiteDatabase db, String whereClause, String... whereArg) {
        return db.delete(tableName, whereClause, whereArg);
     }
 
