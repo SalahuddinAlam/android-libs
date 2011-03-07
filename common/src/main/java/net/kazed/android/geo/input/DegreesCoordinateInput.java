@@ -13,12 +13,24 @@ public class DegreesCoordinateInput extends CoordinateInput {
    private EditText degreesInput;
    private CoordinateBoundary boundary;
 
+   @Deprecated
    public DegreesCoordinateInput(Dialog dialog, int degreesId, int minutesId, CoordinateBoundary boundary) {
       degreesInput = (EditText) dialog.findViewById(degreesId);
       this.boundary = boundary;
    }
 
+   public DegreesCoordinateInput(Dialog dialog, int degreesId, CoordinateBoundary boundary) {
+      degreesInput = (EditText) dialog.findViewById(degreesId);
+      this.boundary = boundary;
+   }
+
+   @Deprecated
    public DegreesCoordinateInput(Activity activity, int degreesId, int minutesId, CoordinateBoundary boundary) {
+      degreesInput = (EditText) activity.findViewById(degreesId);
+      this.boundary = boundary;
+   }
+
+   public DegreesCoordinateInput(Activity activity, int degreesId, CoordinateBoundary boundary) {
       degreesInput = (EditText) activity.findViewById(degreesId);
       this.boundary = boundary;
    }

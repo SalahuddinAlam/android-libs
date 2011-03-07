@@ -462,17 +462,47 @@ public abstract class Table<T> {
     }
     
     /**
+     * Update values in db.
+     * @param db Database.
+     * @param uri Database item URI.
+     * @param values Updated values.
+     * @return Number of rows updated.
+     */
+    public int update(final SQLiteDatabase db, final long id, final ContentValues values) {
+      String whereClause = BaseColumns._ID + " = ?";
+      int count = db.update(tableName, values, whereClause, new String[] {Long.toString(id)});
+      return count;
+    }
+    
+    /**
      * Delete record from db.
      * @param db Database.
      * @param uri Database item URI.
      */
-    public int delete(SQLiteDatabase db, Uri uri) {
+    public int delete(final SQLiteDatabase db, final Uri uri) {
     	String whereClause = BaseColumns._ID + " = ?";
         String idSegment = uri.getLastPathSegment();
         return delete(db, whereClause, new String[] {idSegment});
     }
 
-    public int delete(SQLiteDatabase db, String whereClause, String... whereArg) {
+    /**
+     * Delete record from db.
+     * @param db Database.
+     * @param id Database item ID.
+     */
+    public int delete(final SQLiteDatabase db, final long id) {
+      String whereClause = BaseColumns._ID + " = ?";
+        return delete(db, whereClause, new String[] {Long.toString(id)});
+    }
+
+    /**
+     * Delete record from db.
+     * @param db Database.
+     * @param whereClause Where clause.
+     * @param whereArg Arguments for where clause.
+     * @return Number of deleted records.
+     */
+    public int delete(final SQLiteDatabase db, final String whereClause, final String... whereArg) {
        return db.delete(tableName, whereClause, whereArg);
     }
 
