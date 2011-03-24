@@ -93,14 +93,18 @@ public class DegreesMinutesCoordinateInput extends CoordinateInput {
 
    private boolean isMinutesValid() {
       double minutes = getMinutes();
-      return (minutes >= -60 && minutes <= 60);
+      return (minutes != Double.NaN && (minutes >= -60 && minutes <= 60));
    }
       
    private int getDegrees() {
       String degreesString = degreesInput.getText().toString();
       int degrees = 0;
       if (degreesString != null && degreesString.length() > 0) {
-         degrees = Integer.parseInt(degreesInput.getText().toString());
+         try {
+            degrees = Integer.parseInt(degreesInput.getText().toString());
+         } catch (NumberFormatException e) {
+            degrees = Integer.MIN_VALUE;
+         }
       }
       return degrees;
    }
@@ -109,7 +113,11 @@ public class DegreesMinutesCoordinateInput extends CoordinateInput {
       String minutesString = minutesInput.getText().toString();
       double minutes = 0.0;
       if (minutesString != null && minutesString.length() > 0) {
-         minutes = Double.parseDouble(minutesString);
+         try {
+            minutes = Double.parseDouble(minutesString.replace(',', '.'));
+         } catch (NumberFormatException e) {
+            minutes = Double.NaN;
+         }
       }
       return minutes;
    }
