@@ -3,7 +3,7 @@
    <parent>
       <groupId>net.kazed.android</groupId>
       <artifactId>android-libs</artifactId>
-      <version>1.0.13</version>
+      <version>1.0.14-SNAPSHOT</version>
    </parent>
 	<groupId>net.kazed.android</groupId>
 	<artifactId>inject</artifactId>
