@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.kazed.android</groupId>
 	<artifactId>android-libs</artifactId>
-	<version>1.0.14-SNAPSHOT</version>
+	<version>1.0.14</version>
 	<packaging>pom</packaging>
 	<name>Android library</name>
 
