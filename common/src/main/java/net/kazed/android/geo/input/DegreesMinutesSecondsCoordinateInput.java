@@ -55,6 +55,7 @@ public class DegreesMinutesSecondsCoordinateInput extends CoordinateInput {
          double seconds = 60 * (minutesValue - minutes);
          if (degrees < 0) {
             minutes = Math.abs(minutes);
+            seconds = Math.abs(seconds);
             degreesInput.setText(Integer.toString(degrees));
          } else if (minutes < 0) {
             minutes = Math.abs(minutes);
@@ -72,9 +73,11 @@ public class DegreesMinutesSecondsCoordinateInput extends CoordinateInput {
    }
 
    public double getValue() {
-      double value = getDegrees() + (double) getMinutes()/60 + (double) getSeconds()/3600;
+      double value = 0.0;
       if (degreesInput.getText().toString().startsWith("-")) {
-         value = -value;
+         value = getDegrees() - (double) getMinutes()/60 - (double) getSeconds()/3600;
+      } else {
+         value = getDegrees() + (double) getMinutes()/60 + (double) getSeconds()/3600;
       }
       return value;
    }
