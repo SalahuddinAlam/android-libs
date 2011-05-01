@@ -27,6 +27,11 @@ public abstract class CoordinateInput {
     */
    public abstract boolean requestFocus();
    
+   /**
+    * @return True if this component has focus.
+    */
+   public abstract boolean hasFocus();
+   
    public static class CoordinateBoundary {
       private int boundaryErrorId;
       private double minimum;

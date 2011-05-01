@@ -91,6 +91,11 @@ public class DegreesMinutesCoordinateInput extends CoordinateInput {
       return degreesInput.requestFocus();
    }
 
+   @Override
+   public boolean hasFocus() {
+      return degreesInput.hasFocus() || minutesInput.hasFocus();
+   }
+
    private boolean isMinutesValid() {
       double minutes = getMinutes();
       return (minutes != Double.NaN && (minutes >= -60 && minutes <= 60));

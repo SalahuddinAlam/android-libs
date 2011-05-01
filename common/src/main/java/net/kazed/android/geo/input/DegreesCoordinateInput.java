@@ -69,8 +69,14 @@ public class DegreesCoordinateInput extends CoordinateInput {
       return valid;
    }
 
+   @Override
    public boolean requestFocus() {
       return degreesInput.requestFocus();
+   }
+
+   @Override
+   public boolean hasFocus() {
+      return degreesInput.hasFocus();
    }
 
    public boolean isDegreesValid(int minimum, int maximum) {

@@ -107,6 +107,11 @@ public class DegreesMinutesSecondsCoordinateInput extends CoordinateInput {
       return degreesInput.requestFocus();
    }
 
+   @Override
+   public boolean hasFocus() {
+      return degreesInput.hasFocus() || minutesInput.hasFocus() || secondsInput.hasFocus();
+   }
+
    private boolean isMinutesValid() {
       int minutes = getMinutes();
       return (minutes >= 0 && minutes <= 60);
