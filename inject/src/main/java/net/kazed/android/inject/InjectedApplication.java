@@ -9,15 +9,17 @@ import android.content.Context;
  */
 public abstract class InjectedApplication extends Application {
 
-    private Injector injector;
     
-    public void injectInto(Object target) {
-    	getInjector().inject(target);
-    }
-    
-    protected ApplicationContext createApplicationContext() {
-		DirectApplicationContext appContext = new DirectApplicationContext();
-		return appContext;
+    @Override
+   public void onCreate() {
+      super.onCreate();
+      ApplicationContext applicationContext = ApplicationSingleton.getInstance().getApplicationContext();
+      applicationContext.bindInstance(Context.class, this);
+      initializeContext(applicationContext);
+   }
+
+   public void injectInto(Object target) {
+    	ApplicationSingleton.getInstance().getInjector().inject(target);
     }
     
     /**
@@ -25,17 +27,7 @@ public abstract class InjectedApplication extends Application {
      * and override this method. Always call super.
      * @param applicationContext Application context.
      */
-    protected void initializeContext(ApplicationContext applicationContext) {
-    	applicationContext.bindInstance(Context.class, this);
-    }
-    
-    public synchronized Injector getInjector() {
-    	if (injector == null) {
-    		ApplicationContext applicationContext = createApplicationContext();
-    		initializeContext(applicationContext);
-    		injector = new Injector(applicationContext);
-    	}
-    	return injector;
+    protected void initializeContext(final ApplicationContext applicationContext) {
     }
     
 }
