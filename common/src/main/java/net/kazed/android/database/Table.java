@@ -231,6 +231,9 @@ public abstract class Table<T> {
     public String getString(Cursor cursor, String fieldName) {
        String result = null;
        
+       if (!nameToPosition.containsKey(fieldName)) {
+          throw new IllegalArgumentException("Column not found: " + fieldName);
+       }
        int columnIndex = nameToPosition.get(fieldName);
        if (!cursor.isNull(columnIndex)) {
           result = cursor.getString(columnIndex);

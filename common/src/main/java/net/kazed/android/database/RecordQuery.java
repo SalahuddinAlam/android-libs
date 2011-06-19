@@ -27,10 +27,37 @@ public class RecordQuery<T> {
    }
 
    /**
+    * @return Record from current cursor position.
+    */
+   public T getCurrentRecord() {
+      return table.extract(cursor);
+   }
+
+   /**
     * @return Record from first cursor position.
     */
    public T getRecord(int position) {
       cursor.moveToPosition(position);
       return table.extract(cursor);
+   }
+
+   public boolean hasNext() {
+      return !cursor.isAfterLast();
+   }
+
+   public boolean moveToNext() {
+      return cursor.moveToNext();
+   }
+
+   public boolean moveToFirst() {
+      return cursor.moveToFirst();
+   }
+
+   public boolean moveToPosition(final int position) {
+      return cursor.moveToPosition(position);
+   }
+
+   public int getCount() {
+      return cursor.getCount();
    }
 }
